@@ -1,0 +1,18 @@
+<app-main-header></app-main-header>
+<p-panel header="">
+  <p-fieldset legend="Administration">
+    <div class="col-12">
+      <button style="width: 100% !important;" pButton type="button"  class="p-button-lg" icon="pi pi-users" iconPos="left" (click)="showPage('/admin')"></button>
+    </div>
+  </p-fieldset>
+  <p-fieldset legend="Talent">
+    <div class="col-12">
+      <button style="width: 100% !important;" pButton type="button" class="p-button-lg" icon="pi pi-database" iconPos="left" (click)="showPage('/talent')"></button>
+    </div>
+  </p-fieldset>
+  <p-fieldset legend="Report">
+    <div class="col-12">
+      <button style="width: 100% !important;" pButton type="button" class="p-button-lg col-12" icon="pi pi-folder-open" iconPos="left" (click)="showPage('/report')"></button>
+    </div>
+  </p-fieldset>
+</p-panel>

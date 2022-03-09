@@ -1,0 +1,25 @@
+<app-header></app-header>
+<div *ngIf="!isLoggedIn" class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align: center;">Login</mat-card-title>
+    <mat-card-content>
+      <form  name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate >
+        <mat-form-field>
+          <input matInput type="text" placeholder="S ID" required name="sid" [(ngModel)]="form.sid" #sid="ngModel">
+          <mat-error *ngIf="sid.invalid">S-ID is required</mat-error>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" required minlength="5" name="password" [(ngModel)]="form.password" #password="ngModel">
+          <mat-error *ngIf="password.errors && password.errors['required']">Password is required</mat-error>
+          <mat-error *ngIf="password.errors && password.errors['minlength']">Password must be of length 6</mat-error>
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+        <mat-checkbox>Remember Me!</mat-checkbox>
+        <button mat-raised-button color="primary" class="login-button">Sign In</button>
+        <mat-error *ngIf="f.submitted && isLoginFailed">Login failed: {{ errorMessage }}</mat-error>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
