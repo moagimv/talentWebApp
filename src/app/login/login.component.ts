@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../services/auth-service.service';
+import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  systemUser: any;
 
   form: any = {
     sid: null,
@@ -19,46 +23,45 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
 
   constructor(
-    //private authService: AuthService,
-    //private tokenStorage: TokenStorageService,
+    private authService: AuthServiceService,
+    private tokenStorage: TokenStorageService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
-    /*if (this.tokenStorage.getToken()) {
+    if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-    }*/
+    }
+
+    if(this.isLoggedIn == true){
+      this.naviagePage();
+    }
   }
 
   login(): void {
     const { sid, password } = this.form;
 
-    if(this.form.sid === 's2026987' && this.form.password === '1234567'){
-      this.naviagePage();
-      this.isLoggedIn = true;
-      this.isLoginFailed = true;
-    } else {
-      this.errorMessage = "S-ID or Password is incorrect";
-      this.isLoginFailed = true;
-      this.reloadPage();
-    }
-
-    /*this.authService.login(sid, password).subscribe(
+    this.authService.login(sid, password).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+
+        if(this.isLoggedIn){
+          this.naviagePage();
+        }
+        else{
+          this.errorMessage = "The S-ID or Password is incorrect"
+          this.reloadPage();
+        }
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
-    );*/
+    );
+
   }
 
   naviagePage(): void {
